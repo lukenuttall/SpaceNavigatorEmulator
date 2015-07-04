@@ -1,0 +1,85 @@
+LIBRARY	"siappdll"
+
+EXPORTS
+	SpwErrorVal
+
+	SiInitialize
+	SiIsInitialized
+	SiTerminate
+
+	SiGetLibraryInfo
+	SiGetDriverInfo
+	SiGetDevicePort
+
+	SiGetNumDevices
+	SiDeviceIndex
+
+	SiOpenWinInit
+	SiOpen
+	SiOpenPort
+	SiClose
+
+	SiGetDeviceID
+	SiGetDeviceImageFileName
+	SiGetDeviceInfo
+	SiGetDeviceName
+
+	SiGrabDevice
+	SiReleaseDevice
+
+	SiRezero
+	SiBeep
+	SiSetLEDs
+	SiSetUiMode
+
+	SiDispatch
+
+	SiGetEventWinInit
+	SiGetEvent
+	SiPeekEvent
+
+	SiIsSpaceWareEvent
+	SiButtonPressed
+	SiButtonReleased
+	SiGetButtonName
+
+	SiSyncSendQuery
+	SiSyncGetVersion
+	SiSyncGetNumberOfFunctions
+	SiSyncGetFunction
+	SiSyncGetButtonAssignment
+	SiSyncSetButtonAssignment
+	SiSyncSetButtonAssignmentAbsolute
+	SiSyncSetButtonName
+	SiSyncGetAxisLabel
+	SiSyncSetAxisLabel
+	SiSyncGetOrientation
+	SiSyncSetOrientation
+	SiSyncGetFilter
+	SiSyncSetFilter
+	SiSyncGetAxesState
+	SiSyncSetAxesState
+	SiSyncSetInfoLine
+	SiSyncGetScaleOverall
+	SiSyncSetScaleOverall
+	SiSyncGetScaleTx
+	SiSyncSetScaleTx
+	SiSyncGetScaleTy
+	SiSyncSetScaleTy
+	SiSyncGetScaleTz
+	SiSyncSetScaleTz
+	SiSyncGetScaleRx
+	SiSyncSetScaleRx
+	SiSyncGetScaleRy
+	SiSyncSetScaleRy
+	SiSyncGetScaleRz
+	SiSyncSetScaleRz
+	SiSyncInvokeAbsoluteFunction
+	SiSyncSetButtonState
+
+	SiGetCompanyIcon
+	SiGetCompanyLogoFileName
+
+	SpwErrorString
+
+	SiSetTypeMask
