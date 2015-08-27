@@ -52,11 +52,6 @@ namespace SpaceNavigatorEmulator
 
 		JoyRecord const & GetRecord() const;
 
-		bool GetFakeMouseMoveWhenRotating() const
-		{
-			return configurator.GetFakeMouseMoveWhenRotating();
-		}
-
 		bool IsReady()
 		{
 			return ready;

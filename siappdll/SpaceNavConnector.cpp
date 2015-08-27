@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <thread>
 #include "Log.h"
 #include <windowsx.h>
+#include "MouseDragOnStartOfRotation.h"
 
 using namespace std;
+using namespace SpaceNavigatorEmulator;
 
 namespace SpaceNavigatorEmulator
 {
@@ -60,6 +62,8 @@ namespace SpaceNavigatorEmulator
 				fireCallback();
 			}));
 		}
+
+		mouseDragOnStartOfRotationFilter.reset(new MouseDragOnStartOfRotation(current));
 
 		timer.reset(new Timer(periodMs, [&] { pollStick(); }));
 
@@ -113,23 +117,8 @@ namespace SpaceNavigatorEmulator
 		}
 		if (type == SI_MOTION_EVENT)
 		{
-			// FIXME - extract to strategy/helper class
-			if (oldRecord.IsCentered() && record.IsRotation() && stick->GetFakeMouseMoveWhenRotating())
-			{
-				// We are going to fake a middle mouse movement
-				POINT p;
-				if (GetCursorPos(&p) && ScreenToClient(windowHandle, &p))
-				{
-					DWORD position = MAKELPARAM(p.x, p.y);
-					::PostMessage(windowHandle, WM_MBUTTONDOWN, MK_MBUTTON, position);
-					
-					DWORD move = MAKELPARAM(p.x + 10, p.y);
-					::PostMessage(windowHandle, WM_MOUSEMOVE, MK_MBUTTON, move);
-					::PostMessage(windowHandle, WM_MOUSEMOVE, MK_MBUTTON, position);
-
-					::PostMessage(windowHandle, WM_MBUTTONUP, 0, position);
-				}
-			}
+			// Process any mouse drags
+			mouseDragOnStartOfRotationFilter->Process(record);
 		}
 		::PostMessage(windowHandle, space_nav_message, type, 1);
 	}

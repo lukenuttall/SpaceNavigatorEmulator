@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Windows.h>
 #include "Timer.h"
 #include "Joystick.h"
+#include "IMode.h"
 #include <mutex>
 
 namespace SpaceNavigatorEmulator
@@ -71,6 +72,8 @@ namespace SpaceNavigatorEmulator
 		std::unique_ptr<SpaceNavigatorEmulator::Timer> timer;
 
 		JoyRecord record;
+
+		std::unique_ptr<SpaceNavigatorEmulator::IMode> mouseDragOnStartOfRotationFilter;
 	};
 
 }
