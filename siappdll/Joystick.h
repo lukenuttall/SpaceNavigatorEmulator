@@ -28,17 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "JoyRecord.h"
 #include "SpaceNavigatorAction.h"
 #include "ActionMap.h"
+#include "IMode.h"
 #include "ModeReplacement.h"
 #include "JoystickConfigurator.h"
+#include "ActionDetails.h"
+#include "ButtonTester.h"
 
 namespace SpaceNavigatorEmulator
 {
-	struct ActionDetails
-	{
-		unsigned int mappingOffset;
-		bool axisInverted;
-	};
-
 	class Joystick
 	{
 	public:
@@ -85,9 +82,7 @@ namespace SpaceNavigatorEmulator
 		LONG getAxis(SpaceNavigatorAction::Action action, DIJOYSTATE* state, bool swapsEnabled = false);
 
 		SpaceNavigatorAction::Action Joystick::GetBufferedAction(DWORD offset);
-
-		bool isButtonDown(SpaceNavigatorAction::Action action, DIJOYSTATE* state);
-
+		
 		long GetButtonState(std::set<SpaceNavigatorAction::Action> actions);
 
 		long GetCurrentButtonState(DIJOYSTATE* state);
@@ -98,9 +93,7 @@ namespace SpaceNavigatorEmulator
 
 		std::vector<DWORD> xinputDevices;
 
-		std::map<SpaceNavigatorAction::Action, ActionDetails> actions;
-
-		std::vector<ModeReplacement> axisSwaps;
+		std::map<SpaceNavigatorAction::Action, std::shared_ptr<ActionDetails>> actions;
 
 		PreferredJoystick preferredStick;
 
@@ -112,5 +105,10 @@ namespace SpaceNavigatorEmulator
 
 		bool filterXInputDevicesOut = false;
 
+		std::unique_ptr<SpaceNavigatorEmulator::IMode> axisProcessor;
+
+		std::unique_ptr<SpaceNavigatorEmulator::IMode> axisSwapper;
+
+		ButtonTester buttonTester;
 	};
 }

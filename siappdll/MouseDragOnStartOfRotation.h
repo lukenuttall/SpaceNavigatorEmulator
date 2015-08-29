@@ -9,7 +9,7 @@ namespace SpaceNavigatorEmulator
 		MouseDragOnStartOfRotation(HWND window);
 		~MouseDragOnStartOfRotation();
 
-		virtual bool Process(JoyRecord& record);
+		virtual bool Process(JoyRecord& record, DIJOYSTATE* state);
 
 	private:
 		JoyRecord previousRecord;

@@ -16,7 +16,7 @@ namespace SpaceNavigatorEmulator
 	{
 	}
 
-	bool MouseDragOnStartOfRotation::Process(JoyRecord& record)
+	bool MouseDragOnStartOfRotation::Process(JoyRecord& record, DIJOYSTATE* state)
 	{
 		if (enabled && previousRecord.IsCentered() && record.IsRotation())
 		{
