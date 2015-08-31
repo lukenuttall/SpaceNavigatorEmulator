@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "ActionMap.h"
 #include "ModeReplacement.h"
+#include "KeySenderConfig.h"
 
 namespace SpaceNavigatorEmulator
 {
@@ -31,6 +32,7 @@ namespace SpaceNavigatorEmulator
 		std::string deviceName;
 		std::set<ActionMap> actions;
 		std::set<ModeReplacement> modeReplacements;
+		std::set<KeySenderConfig> keySenders;
 
 		void load(std::string filename);
 		void save(std::string filename);

@@ -44,6 +44,11 @@ namespace SpaceNavigatorEmulator
 			return config.actions;
 		}
 
+		std::set<KeySenderConfig> GetKeySenders() const
+		{
+			return config.keySenders;
+		}
+
 		long GetDeadZone() const
 		{
 			return config.GetDeadZone();

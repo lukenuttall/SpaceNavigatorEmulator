@@ -24,10 +24,10 @@ namespace SpaceNavigatorEmulator
 
 	bool AxisSwapper::Process(JoyRecord& record, DIJOYSTATE* state)
 	{
-		bool swapAxes = buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_MODE_SWAP, state);
+		bool swapAxes = buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_SWAP_AXES, state);
 		if (swapAxes)
 		{
-			LOG(TRACE) << "Axis wap enabled - swapping";
+			LOG(TRACE) << "Axis swap enabled - swapping";
 			GetAxis(SpaceNavigatorAction::PAN_X, state, record.x);
 			GetAxis(SpaceNavigatorAction::PAN_Y, state, record.y);
 			GetAxis(SpaceNavigatorAction::PAN_Z, state, record.z);

@@ -47,6 +47,9 @@ namespace SpaceNavigatorEmulator
 			
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("device.modeReplacement"))
 				modeReplacements.insert(ModeReplacement::load(v.second));
+
+			BOOST_FOREACH(ptree::value_type &v, pt.get_child("device.keySendMode"))
+				keySenders.insert(KeySenderConfig::load(v.second));
 		}
 		catch (std::exception e)
 		{

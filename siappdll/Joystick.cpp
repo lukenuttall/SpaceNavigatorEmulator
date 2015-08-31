@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AxisProcessor.h"
 #include "AxisSwapper.h"
+#include "KeySender.h"
 
 #include "JoystickConfigurator.h"
 
@@ -67,6 +68,7 @@ namespace SpaceNavigatorEmulator
 
 		axisProcessor.reset(new AxisProcessor());
 		axisSwapper.reset(new AxisSwapper());
+		keySender.reset(new KeySender());
 		LOG(INFO) << "Joystick " << (!stuck ? "" : "not ") << "initialised";
 	}
 
@@ -195,7 +197,8 @@ namespace SpaceNavigatorEmulator
 
 		axisProcessor->Process(record, &js);
 		axisSwapper->Process(record, &js);
-		 				
+		keySender->Process(record, &js);
+		
 		changedCallback();
 	}
 
@@ -248,7 +251,7 @@ namespace SpaceNavigatorEmulator
 			}
 		}
 		// fixme - add a nop action to the enum
-		return SpaceNavigatorAction::BUTTON_MODE_SWAP;
+		return SpaceNavigatorAction::BUTTON_SWAP_AXES;
 	}
 
 	bool Joystick::Initialise()

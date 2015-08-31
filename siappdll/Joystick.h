@@ -109,6 +109,8 @@ namespace SpaceNavigatorEmulator
 
 		std::unique_ptr<SpaceNavigatorEmulator::IMode> axisSwapper;
 
+		std::unique_ptr<SpaceNavigatorEmulator::IMode> keySender;
+
 		ButtonTester buttonTester;
 	};
 }

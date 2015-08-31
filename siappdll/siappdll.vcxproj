@@ -173,6 +173,7 @@
     <ClCompile Include="AxisSwapper.cpp" />
     <ClCompile Include="ButtonTester.cpp" />
     <ClCompile Include="KeySender.cpp" />
+    <ClCompile Include="KeySenderConfig.cpp" />
     <ClCompile Include="MouseDragOnStartOfRotation.cpp" />
     <ClCompile Include="SpaceNavigatorAction.cpp" />
     <ClCompile Include="ActionMap.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="ButtonTester.h" />
     <ClInclude Include="IMode.h" />
     <ClInclude Include="KeySender.h" />
+    <ClInclude Include="KeySenderConfig.h" />
     <ClInclude Include="MouseDragOnStartOfRotation.h" />
     <ClInclude Include="SpaceNavigatorAction.h" />
     <ClInclude Include="ActionMap.h" />
