@@ -1,4 +1,5 @@
 #include "AxisProcessor.h"
+#include "Log.h"
 
 namespace SpaceNavigatorEmulator
 {
@@ -14,6 +15,7 @@ namespace SpaceNavigatorEmulator
 
 	bool AxisProcessor::Process(JoyRecord& record, DIJOYSTATE* state)
 	{
+		LOG(TRACE) << "Processing joystick axis info";
 		record.x = buttonTester.GetAxis(SpaceNavigatorAction::PAN_X, state);
 		record.y = buttonTester.GetAxis(SpaceNavigatorAction::PAN_Y, state);
 		record.z = buttonTester.GetAxis(SpaceNavigatorAction::PAN_Z, state);

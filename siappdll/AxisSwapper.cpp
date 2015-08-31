@@ -27,6 +27,7 @@ namespace SpaceNavigatorEmulator
 		bool swapAxes = buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_MODE_SWAP, state);
 		if (swapAxes)
 		{
+			LOG(TRACE) << "Axis wap enabled - swapping";
 			record.x = GetAxis(SpaceNavigatorAction::PAN_X, state, swapAxes);
 			record.y = GetAxis(SpaceNavigatorAction::PAN_Y, state, swapAxes);
 			record.z = GetAxis(SpaceNavigatorAction::PAN_Z, state, swapAxes);
@@ -53,7 +54,7 @@ namespace SpaceNavigatorEmulator
 				}
 				if (mode.action == action)
 				{
-					LOG(TRACE) << "Using " << mode.drivenBy << " to procide " << action;
+					LOG(TRACE) << "Using " << mode.drivenBy << " to provide " << action;
 					action = mode.drivenBy;
 					invertRequiredBySwap = mode.invertDrivingAxis;
 				}
