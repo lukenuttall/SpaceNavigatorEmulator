@@ -16,7 +16,7 @@ namespace SpaceNavigatorEmulator
 		virtual bool Process(JoyRecord& record, DIJOYSTATE* state);
 
 	private:
-		LONG GetAxis(SpaceNavigatorAction::Action action, DIJOYSTATE* state, bool swapAxis);
+		void GetAxis(SpaceNavigatorAction::Action action, DIJOYSTATE* state, LONG& record);
 
 		std::vector<ModeReplacement> axisSwaps;
 
