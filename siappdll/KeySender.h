@@ -10,13 +10,15 @@ namespace SpaceNavigatorEmulator
 		public IMode
 	{
 	public:
-		KeySender();
+		KeySender(HWND window);
 		~KeySender();
 
 		virtual bool Process(JoyRecord& record, DIJOYSTATE* state);
 
 	private:
 		std::vector<KeySenderConfig> keySenders;
+
+		HWND keyWindow;
 
 		ButtonTester buttonTester;
 	};

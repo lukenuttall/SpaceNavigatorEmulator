@@ -20,7 +20,7 @@ namespace SpaceNavigatorEmulator
 
 	bool KeySenderConfig::operator<(const KeySenderConfig& rhs) const
 	{
-		// nasty - THis should be a string compare.
+		// nasty - This should not be a string compare.
 		return this->drivenBy + " " + this->keys < rhs.drivenBy + " " + rhs.keys;
 	}
 }
