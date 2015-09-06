@@ -1,5 +1,6 @@
 #include "KeyMapper.h"
 #include <boost\foreach.hpp>
+#include <boost\algorithm\string.hpp>
 
 namespace SpaceNavigatorEmulator
 {
@@ -163,13 +164,14 @@ namespace SpaceNavigatorEmulator
 
 		BOOST_FOREACH(auto entry, hhb_vkey_list)
 		{
-			descritionToVK[entry.description] = entry.vkey;
+			auto key = boost::to_upper_copy(std::string(entry.description));
+			descritionToVK[key] = entry.vkey;
 		}
 	}
 
 	int KeyMapper::getVK(std::string keyName)
 	{
-		auto iter = descritionToVK.find(keyName);
+		auto iter = descritionToVK.find(boost::to_upper_copy(keyName));
 		if (iter != descritionToVK.end())
 		{
 			return iter->second;

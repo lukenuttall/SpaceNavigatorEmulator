@@ -39,9 +39,11 @@ namespace SpaceNavigatorEmulator
 				{
 					LOG(TRACE) << "sending keys " << sender.keys;
 
+					// Split the keys into a vector
 					std::vector<std::string> keys;
 					boost::split(keys, sender.keys, boost::is_any_of("+"), boost::token_compress_on);
 
+					// Press each key in sequence
 					BOOST_FOREACH(auto key, keys)
 					{
 						int vk = mapper.getVK(key);
@@ -49,6 +51,7 @@ namespace SpaceNavigatorEmulator
 							SendKey(vk);
 					}
 
+					// Release keys in reverse order
 					BOOST_REVERSE_FOREACH(auto key, keys)
 					{
 						int vk = mapper.getVK(key);
