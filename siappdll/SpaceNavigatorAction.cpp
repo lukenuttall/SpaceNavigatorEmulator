@@ -33,8 +33,10 @@ namespace SpaceNavigatorEmulator
 			return ROTATE_AROUND_Y;
 		} else if (actionName == "ROTATE_AROUND_Z"){
 			return ROTATE_AROUND_Z;
-		} else if (actionName == "BUTTON_MODE_SWAP"){
-			return BUTTON_MODE_SWAP;
+		} else if (actionName == "BUTTON_SWAP_AXES"){
+			return BUTTON_SWAP_AXES;
+		} else if (actionName == "BUTTON_SEND_KEYS"){
+			return BUTTON_SEND_KEYS;
 		} else if (actionName == "BUTTON_1"){
 			return BUTTON_1;
 		} else if (actionName == "BUTTON_2"){

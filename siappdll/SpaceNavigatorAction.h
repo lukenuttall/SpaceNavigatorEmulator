@@ -32,11 +32,12 @@ namespace SpaceNavigatorEmulator
 			ROTATE_AROUND_X,
 			ROTATE_AROUND_Y,
 			ROTATE_AROUND_Z,
-			BUTTON_MODE_SWAP,
+			BUTTON_SWAP_AXES,
+			BUTTON_SEND_KEYS,
 			BUTTON_1,
 			BUTTON_2,
 			BUTTON_3,
-			BUTTON_4
+			BUTTON_4,
 		};
 
 		static Action parseAction(std::string actionName);

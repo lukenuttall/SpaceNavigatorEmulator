@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "JoyRecord.h"
 
+#include <dinput.h>
+
 namespace SpaceNavigatorEmulator
 {
 	class IMode
@@ -26,6 +28,6 @@ namespace SpaceNavigatorEmulator
 	public:
 		virtual ~IMode(){};
 
-		virtual bool Process(JoyRecord& record) = 0;
+		virtual bool Process(JoyRecord& record, DIJOYSTATE* state) = 0;
 	};
 }

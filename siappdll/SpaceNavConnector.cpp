@@ -118,7 +118,7 @@ namespace SpaceNavigatorEmulator
 		if (type == SI_MOTION_EVENT)
 		{
 			// Process any mouse drags
-			mouseDragOnStartOfRotationFilter->Process(record);
+			mouseDragOnStartOfRotationFilter->Process(record, nullptr);
 		}
 		::PostMessage(windowHandle, space_nav_message, type, 1);
 	}

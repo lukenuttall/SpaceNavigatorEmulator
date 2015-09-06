@@ -41,6 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "Log.h"
 #include <boost\foreach.hpp>
 
+#include "AxisProcessor.h"
+#include "AxisSwapper.h"
+#include "KeySender.h"
+
 #include "JoystickConfigurator.h"
 
 //-----------------------------------------------------------------------------
@@ -61,6 +65,10 @@ namespace SpaceNavigatorEmulator
 	{
 		bool stuck = Initialise();
 		ready = stuck;
+
+		axisProcessor.reset(new AxisProcessor());
+		axisSwapper.reset(new AxisSwapper());
+		keySender.reset(new KeySender(window));
 		LOG(INFO) << "Joystick " << (!stuck ? "" : "not ") << "initialised";
 	}
 
@@ -187,17 +195,10 @@ namespace SpaceNavigatorEmulator
 		record.buttonData.release = GetButtonState(released);
 		record.buttonData.pressed = GetButtonState(pressed);
 
-		bool swapAxes = isButtonDown(SpaceNavigatorAction::BUTTON_MODE_SWAP, &js);
-		if (swapAxes)
-			LOG(TRACE) << "Axis swap enabled";
-
-		record.x = getAxis(SpaceNavigatorAction::PAN_X, &js, swapAxes);
-		record.y = getAxis(SpaceNavigatorAction::PAN_Y, &js, swapAxes);
-		record.z = getAxis(SpaceNavigatorAction::PAN_Z, &js, swapAxes);;
-		record.rx = getAxis(SpaceNavigatorAction::ROTATE_AROUND_X, &js, swapAxes);
-		record.ry = getAxis(SpaceNavigatorAction::ROTATE_AROUND_Y, &js, swapAxes);
-		record.rz = getAxis(SpaceNavigatorAction::ROTATE_AROUND_Z, &js, swapAxes);
- 				
+		axisProcessor->Process(record, &js);
+		axisSwapper->Process(record, &js);
+		keySender->Process(record, &js);
+		
 		changedCallback();
 	}
 
@@ -228,13 +229,13 @@ namespace SpaceNavigatorEmulator
 	long Joystick::GetCurrentButtonState(DIJOYSTATE* stickState)
 	{
 		long state = 0;
-		if (isButtonDown(SpaceNavigatorAction::BUTTON_1, stickState))
+		if (buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_1, stickState))
 			state |= 2;
-		if (isButtonDown(SpaceNavigatorAction::BUTTON_2, stickState))
+		if (buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_2, stickState))
 			state |= 4;
-		if (isButtonDown(SpaceNavigatorAction::BUTTON_3, stickState))
+		if (buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_3, stickState))
 			state |= 8;
-		if (isButtonDown(SpaceNavigatorAction::BUTTON_4, stickState))
+		if (buttonTester.IsButtonDown(SpaceNavigatorAction::BUTTON_4, stickState))
 			state |= 16;
 
 		return state;
@@ -244,63 +245,13 @@ namespace SpaceNavigatorEmulator
 	{
 		BOOST_FOREACH(auto action, actions)
 		{
-			if (action.second.mappingOffset == offset)
+			if (action.second->mappingOffset == offset)
 			{
 				return action.first;
 			}
 		}
 		// fixme - add a nop action to the enum
-		return SpaceNavigatorAction::BUTTON_MODE_SWAP;
-	}
-
-	bool Joystick::isButtonDown(SpaceNavigatorAction::Action action, DIJOYSTATE* state)
-	{
-		auto actionIter = actions.find(action);
-		if (actionIter != actions.end())
-		{
-			unsigned int mappingOffset = actionIter->second.mappingOffset;
-			auto pointer = ((BYTE *)state + mappingOffset);
-			return (*pointer & 0x80) != 0;
-		}
-		return 0;
-	}
-
-	LONG Joystick::getAxis(SpaceNavigatorAction::Action action, DIJOYSTATE* state, bool swapsEnabled)
-	{
-		bool invertRequiredBySwap = false;
-		// Check if we need to swap this axis
-		if (swapsEnabled)
-		{
-			BOOST_FOREACH(ModeReplacement& mode, axisSwaps)
-			{
-				// If we are swapping and the axis normally driving this action is swapped out return 0
-				if (mode.drivenBy == action)
-				{
-					return 0;
-				}
-				if (mode.action == action)
-				{
-					LOG(TRACE) << "Using " << mode.drivenBy << " to procide " << action;
-					action = mode.drivenBy;
-					invertRequiredBySwap = mode.invertDrivingAxis;
-				}
-			}
-		}
-
-		auto actionIter = actions.find(action);
-		if (actionIter != actions.end())
-		{
-			auto map = actionIter->second;
-			unsigned int mappingOffset = map.mappingOffset;
-			auto pointer = (LONG*)((BYTE *)state + mappingOffset);
-			auto axis = *pointer;
-			if (map.axisInverted || invertRequiredBySwap)
-			{
-				axis = -axis;
-			}
-			return axis;
-		}
-		return 0;
+		return SpaceNavigatorAction::BUTTON_SWAP_AXES;
 	}
 
 	bool Joystick::Initialise()
@@ -346,14 +297,11 @@ namespace SpaceNavigatorEmulator
 		auto configuratorActions = configurator.GetActions();
 		BOOST_FOREACH(ActionMap const& map, configuratorActions)
 		{
-			ActionDetails details{ map.getMappingOffset(), map.IsInverted() };
+			std::shared_ptr<ActionDetails> details(new ActionDetails(map.getMappingOffset(), map.IsInverted()));
 
 			actions[map.getAction()] = details;
 		}
-		BOOST_FOREACH(const ModeReplacement& swap, configurator.GetModeReplacements())
-		{
-			axisSwaps.push_back(swap);
-		}
+
 
 
 		// Set the data format to "simple joystick" - a predefined data format 

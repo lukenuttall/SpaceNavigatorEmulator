@@ -1,28 +1,30 @@
 {
    "device":
    {
-      "deviceName": "XBox 360",
+      "deviceName": "",
       "deadzone": "2000",
       "axisRange": "150",
       "fakeMouseMoveWhenRotating" : "true",
       "actionMap":
-      [
-         {"actionName": "PAN_X", "joystickObject": "lX"},		 
-         {"actionName": "PAN_Y", "joystickObject": "lY"},		 
-         {"actionName": "ROTATE_AROUND_X", "joystickObject": "lRy"},		 
-         {"actionName": "ROTATE_AROUND_Y", "joystickObject": "lZ", "invertAxis": "true"},		 
-         {"actionName": "ROTATE_AROUND_Z", "joystickObject": "lRx"},
-         {"actionName": "BUTTON_MODE_SWAP", "joystickObject": "rgbButtons0"},
-         {"actionName": "BUTTON_1", "joystickObject": "rgbButtons1"},
+      [		 
+	     {"actionName": "ROTATE_AROUND_Y", "joystickObject": "lX" },
+	     {"actionName": "ROTATE_AROUND_X", "joystickObject": "lY" },
+         {"actionName": "PAN_Z", "joystickObject": "lRx"},				 
+         {"actionName": "ROTATE_AROUND_Z", "joystickObject": "lZ", "invertAxis": "true"}, 
+         {"actionName": "BUTTON_SWAP_AXES", "joystickObject": "rgbButtons0"},
+         {"actionName": "BUTTON_SEND_KEYS", "joystickObject": "rgbButtons1"},
          {"actionName": "BUTTON_2", "joystickObject": "rgbButtons2"},
          {"actionName": "BUTTON_3", "joystickObject": "rgbButtons3"}
-
       ],
       "modeReplacement":
       [
-         {"action": "PAN_X", "drivenBy": "ROTATE_AROUND_X"},	
-         {"action": "PAN_Y", "drivenBy": "ROTATE_AROUND_Y", "invertDrivingAxis":"true"},
-         {"action": "PAN_Z", "drivenBy": "ROTATE_AROUND_Z"}
-      ]
+         {"action": "PAN_Y", "drivenBy": "ROTATE_AROUND_X"},
+         {"action": "PAN_X", "drivenBy": "ROTATE_AROUND_Y"}
+      ],
+	  "keySendMode":
+	  [
+		  {"drivenBy": "ROTATE_AROUND_X", "threshold" : "100", "keys":"ctrl+alt+l"},
+		  {"drivenBy": "ROTATE_AROUND_X", "threshold" : "-100", "keys":"ctrl+alt+f"}
+	  ]
    }
 }

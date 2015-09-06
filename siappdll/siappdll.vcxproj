@@ -168,8 +168,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionDetails.cpp" />
+    <ClCompile Include="AxisProcessor.cpp" />
     <ClCompile Include="AxisSwapper.cpp" />
+    <ClCompile Include="ButtonTester.cpp" />
+    <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="KeySender.cpp" />
+    <ClCompile Include="KeySenderConfig.cpp" />
     <ClCompile Include="MouseDragOnStartOfRotation.cpp" />
     <ClCompile Include="SpaceNavigatorAction.cpp" />
     <ClCompile Include="ActionMap.cpp" />
@@ -190,9 +195,14 @@
     <None Include="siappdll.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionDetails.h" />
+    <ClInclude Include="AxisProcessor.h" />
     <ClInclude Include="AxisSwapper.h" />
+    <ClInclude Include="ButtonTester.h" />
     <ClInclude Include="IMode.h" />
+    <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="KeySender.h" />
+    <ClInclude Include="KeySenderConfig.h" />
     <ClInclude Include="MouseDragOnStartOfRotation.h" />
     <ClInclude Include="SpaceNavigatorAction.h" />
     <ClInclude Include="ActionMap.h" />
