@@ -3,6 +3,7 @@
 #include "ButtonTester.h"
 #include <vector>
 #include "KeySenderConfig.h"
+#include "KeyMapper.h"
 
 namespace SpaceNavigatorEmulator
 {
@@ -18,8 +19,12 @@ namespace SpaceNavigatorEmulator
 	private:
 		std::vector<KeySenderConfig> keySenders;
 
+		void SendKey(int virtualKey, bool up = false);
+
 		HWND keyWindow;
 
 		ButtonTester buttonTester;
+
+		KeyMapper mapper;
 	};
 }

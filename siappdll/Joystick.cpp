@@ -68,7 +68,7 @@ namespace SpaceNavigatorEmulator
 
 		axisProcessor.reset(new AxisProcessor());
 		axisSwapper.reset(new AxisSwapper());
-		keySender.reset(new KeySender());
+		keySender.reset(new KeySender(window));
 		LOG(INFO) << "Joystick " << (!stuck ? "" : "not ") << "initialised";
 	}
 
