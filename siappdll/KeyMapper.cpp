@@ -1,6 +1,7 @@
 #include "KeyMapper.h"
 #include <boost\foreach.hpp>
 #include <boost\algorithm\string.hpp>
+#include "Log.h"
 
 namespace SpaceNavigatorEmulator
 {
@@ -162,8 +163,10 @@ namespace SpaceNavigatorEmulator
 			{ "VK_ZOOM", 0xFB, "Zoom" },
 		};
 
+		LOG(TRACE) << "Building virtual key map";
 		BOOST_FOREACH(auto entry, hhb_vkey_list)
 		{
+			LOG(TRACE) << entry.description;
 			auto key = boost::to_upper_copy(std::string(entry.description));
 			descritionToVK[key] = entry.vkey;
 		}

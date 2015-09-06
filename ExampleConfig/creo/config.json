@@ -11,15 +11,24 @@
 	 {"actionName": "ROTATE_AROUND_X", "joystickObject": "lY" },
          {"actionName": "PAN_Z", "joystickObject": "rglSlider0"},				 
          {"actionName": "ROTATE_AROUND_Z", "joystickObject": "lRz", "invertAxis": "false"}, 
-         {"actionName": "BUTTON_MODE_SWAP", "joystickObject": "rgbButtons0"},
-         {"actionName": "BUTTON_1", "joystickObject": "rgbButtons1"},
-         {"actionName": "BUTTON_2", "joystickObject": "rgbButtons2"},
-         {"actionName": "BUTTON_3", "joystickObject": "rgbButtons3"}
+         {"actionName": "BUTTON_SWAP_AXES", "joystickObject": "rgbButtons0"},
+         {"actionName": "BUTTON_SEND_KEYS", "joystickObject": "rgbButtons1"},
+         {"actionName": "BUTTON_1", "joystickObject": "rgbButtons2"},
+         {"actionName": "BUTTON_2", "joystickObject": "rgbButtons3"}
       ],
       "modeReplacement":
       [
          {"action": "PAN_Y", "drivenBy": "ROTATE_AROUND_X", "invertDrivingAxis": "true"},
          {"action": "PAN_X", "drivenBy": "ROTATE_AROUND_Y"}
+      ],
+      "keySendMode":
+      [
+	  {"drivenBy": "ROTATE_AROUND_X", "threshold" : "100", "keys":"v+f"},
+	  {"drivenBy": "ROTATE_AROUND_X", "threshold" : "-100", "keys":"v+k"},
+	  {"drivenBy": "ROTATE_AROUND_Y", "threshold" : "100", "keys":"v+l"},
+	  {"drivenBy": "ROTATE_AROUND_Y", "threshold" : "-100", "keys":"v+r"},
+	  {"drivenBy": "ROTATE_AROUND_Z", "threshold" : "100", "keys":"v+b"},
+	  {"drivenBy": "ROTATE_AROUND_Z", "threshold" : "-100", "keys":"v+t"}
       ]
    }
 }
