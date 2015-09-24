@@ -61,7 +61,7 @@ namespace SpaceNavigatorEmulator
 				}
 			}
 		}
-		return true;
+		return sendKeys;
 	}
 
 	void KeySender::SendKey(int virtualKey, bool up)

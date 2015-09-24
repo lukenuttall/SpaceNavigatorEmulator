@@ -197,7 +197,12 @@ namespace SpaceNavigatorEmulator
 
 		axisProcessor->Process(record, &js);
 		axisSwapper->Process(record, &js);
-		keySender->Process(record, &js);
+		bool sentKeys = keySender->Process(record, &js);
+
+		if (sentKeys)
+		{
+			record = old;
+		}
 		
 		changedCallback();
 	}

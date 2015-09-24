@@ -63,7 +63,7 @@ namespace SpaceNavigatorEmulator
 			}));
 		}
 
-		mouseDragOnStartOfRotationFilter.reset(new MouseDragOnStartOfRotation(current));
+		mouseDragOnStartOfRotationFilter.reset(new MouseDragOnStartOfRotation(windowHandle));
 
 		timer.reset(new Timer(periodMs, [&] { pollStick(); }));
 
@@ -90,6 +90,9 @@ namespace SpaceNavigatorEmulator
 			record = stick->GetRecord();
 		};
 
+		// Process any mouse drags
+		mouseDragOnStartOfRotationFilter->Process(record, 0);
+
 		int type = SI_MOTION_EVENT;
 		if (record.buttonData.current != record.buttonData.last)
 		{
@@ -114,11 +117,6 @@ namespace SpaceNavigatorEmulator
 			DWORD justReleased = difference & last;
 			if (justReleased)
 				message(justReleased, SI_BUTTON_RELEASE_EVENT);
-		}
-		if (type == SI_MOTION_EVENT)
-		{
-			// Process any mouse drags
-			mouseDragOnStartOfRotationFilter->Process(record, nullptr);
 		}
 		::PostMessage(windowHandle, space_nav_message, type, 1);
 	}
